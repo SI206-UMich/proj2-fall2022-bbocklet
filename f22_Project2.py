@@ -28,7 +28,9 @@ def get_listings_from_search_results(html_file):
     soup = BeautifulSoup(html_file.content, "html,parser")
 
     tags = soup.find_all('a')
-    print(tags)
+
+    for tag in tags:
+        print(tag.get('href', None))
 
 
 def get_listing_information(listing_id):
