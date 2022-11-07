@@ -25,7 +25,10 @@ def get_listings_from_search_results(html_file):
         ('Loft in Mission District', 210, '1944564'),  # example
     ]
     """
-    pass
+    soup = BeautifulSoup(html_file.content, "html,parser")
+
+    tags = soup.find_all('a')
+    print(tags)
 
 
 def get_listing_information(listing_id):
@@ -142,6 +145,7 @@ class TestCases(unittest.TestCase):
         # call get_listings_from_search_results("html_files/mission_district_search_results.html")
         # and save to a local variable
         listings = get_listings_from_search_results("html_files/mission_district_search_results.html")
+        print(listings)
         # check that the number of listings extracted is correct (20 listings)
         self.assertEqual(len(listings), 20)
         # check that the variable you saved after calling the function is a list
