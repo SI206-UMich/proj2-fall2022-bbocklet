@@ -27,30 +27,62 @@ def get_listings_from_search_results(html_file):
     """
     f = open(html_file, 'r')
     return_list = []
-    
+    pattern = "in mission district"
 
     soup = BeautifulSoup(f, "html.parser")
-    x = soup.find_all("script")
-    pattern = "data-deferred-state"
 
-    values = re.search(pattern, x.string)
-        
+    div_tags = soup.find_all('div', class_=" dir dir-ltr")
 
-    # data = soup.find_all("data-deferred-state")
+    print(div_tags)
 
-    # script = soup.find("script", text="data-deferred-state")
+    for tag in div_tags:
+        print(tag)
+        print('_________')
 
+    # Sprint(div_tags)
+
+
+
+    # for tag in div_tags:
+    #     print(tag.get(class_="c1yo0219 dir dir-ltr"))
+
+
+    # if re.search(pattern, soup):
+    #     print(soup)
+
+    # for div in div_tags:
+    #     print(div)
+    #     print('_________')
+
+
+    # listings.find_all(class_=" dir dir-ltr")
+
+    # div_tags = listings.find_all("div", "span")
     
 
-    print( "_________________________")
-    print(values)
-    print( "_________________________")
+    # for tag in div_tags:
+    #     print(tag)
+    #     print("__________")
+
+        
+        # if "dir dir-ltr" in tag:
 
 
-    # for tag in tags:
-    #     print(tag.get())
+    # titles = listings.find_all("div")
 
-    # print(soup)
+    # for title in titles:
+    #     print(title)
+
+    # print(listings)
+
+
+
+    # title in mission district --> loft in mission district -> go back to the class it is within
+    # div -> span -> a 
+    # make cost an int 
+    
+    # ids = soup.find_all("id")
+
 
     f.close()
 
