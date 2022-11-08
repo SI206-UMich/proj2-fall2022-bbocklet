@@ -30,11 +30,30 @@ def get_listings_from_search_results(html_file):
     
 
     soup = BeautifulSoup(f, "html.parser")
+    x = soup.find_all("script")
+    pattern = "data-deferred-state"
 
-    print(soup)
+    values = re.search(pattern, x.string)
+        
+
+    # data = soup.find_all("data-deferred-state")
+
+    # script = soup.find("script", text="data-deferred-state")
+
+    
+
+    print( "_________________________")
+    print(values)
+    print( "_________________________")
+
+
+    # for tag in tags:
+    #     print(tag.get())
+
+    # print(soup)
 
     f.close()
-    
+
 
 
 def get_listing_information(listing_id):
