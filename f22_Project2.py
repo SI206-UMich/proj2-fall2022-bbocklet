@@ -25,66 +25,47 @@ def get_listings_from_search_results(html_file):
         ('Loft in Mission District', 210, '1944564'),  # example
     ]
     """
+
     f = open(html_file, 'r')
+    title_list = []
+    cost_list = []
+    id_list = []
+    ids = []
     return_list = []
-    pattern = "in mission district"
+    count = 0
 
-    soup = BeautifulSoup(f, "html.parser")
-
-    div_tags = soup.find_all('div', class_=" dir dir-ltr")
-
-    print(div_tags)
-
-    for tag in div_tags:
-        print(tag)
-        print('_________')
-
-    # Sprint(div_tags)
-
-
-
-    # for tag in div_tags:
-    #     print(tag.get(class_="c1yo0219 dir dir-ltr"))
-
-
-    # if re.search(pattern, soup):
-    #     print(soup)
-
-    # for div in div_tags:
-    #     print(div)
-    #     print('_________')
-
-
-    # listings.find_all(class_=" dir dir-ltr")
-
-    # div_tags = listings.find_all("div", "span")
+    data = BeautifulSoup(f, 'html.parser')
+    title_tags = data.find_all('div', class_ = 't1jojoys')
+    # print(title_tags)
+    cost_tags = data.find_all('span', class_ = '_tyxjp1')
+    # print(cost_tags)
     
+    for title in title_tags:
+        title_list.append(title.text)
+    # print(title_list)
 
-    # for tag in div_tags:
-    #     print(tag)
-    #     print("__________")
+    for cost in cost_tags:
+        cost_list.append(int(cost.text.strip('$')))
+    # print(cost_list)
 
-        
-        # if "dir dir-ltr" in tag:
+    for item in title_tags:
+        id = item.get('id', None)
+        id_list.append(id)
+    # print(id_list)
 
+    for id in id_list:
+        pair = id.split('_')
+       # print(pair)
+        ids.append(pair[1])
+    # print(ids)
 
-    # titles = listings.find_all("div")
+    while count < len(title_tags):
+        tup = (title_list[count], cost_list[count], ids[count])
+        return_list.append(tup)
+        count += 1
 
-    # for title in titles:
-    #     print(title)
-
-    # print(listings)
-
-
-
-    # title in mission district --> loft in mission district -> go back to the class it is within
-    # div -> span -> a 
-    # make cost an int 
     
-    # ids = soup.find_all("id")
-
-
-    f.close()
+    return return_list
 
 
 
