@@ -64,7 +64,7 @@ def get_listings_from_search_results(html_file):
         return_list.append(tup)
         count += 1
 
-    
+    f.close()    
     return return_list
 
 
@@ -98,7 +98,7 @@ def get_listing_information(listing_id):
 
     f = open(html_file, 'r')
     file_data = f.read()
-
+    
     data = BeautifulSoup(file_data, 'html.parser')
 
     policy = data.find_all('li', class_ = 'f19phm7j dir dir-ltr')[0].text
@@ -133,12 +133,26 @@ def get_listing_information(listing_id):
 
     br_code = rooms[1].text.split()
 
-    num_br = int(br_code[1])
+    
+
+    if br_code[1].lower() == 'studio':
+        num_br = 1
+    else:  
+        num_br = int(br_code[1])
+
+    # print("---------------")
+    # print(br_code)
+    # print(num_br)
+    # print("---------------")
+
+
 
     # print(policy)
     # print(place)
     # print(num_br)
     # print("******")
+
+    f.close()
 
     return (policy, place, num_br)
 
@@ -157,7 +171,28 @@ def get_detailed_listing_database(html_file):
         ...
     ]
     """
-    pass
+
+    return_list = []
+    search_results = get_listings_from_search_results(html_file)
+
+    for result in search_results:
+        id = result[2]
+        # print(id)
+        information = get_listing_information(id)
+        # print(information)
+
+        new_tup = (result[0], result[1], result[2], information[0], information[1], information[2])
+        # print(new_tup)
+        return_list.append(new_tup)
+        # print(return_list)
+
+
+    return return_list
+
+
+
+
+    # pass
 
 
 def write_csv(data, filename):
