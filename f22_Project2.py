@@ -94,8 +94,6 @@ def get_listing_information(listing_id):
     )
     """
 
-    policies = []
-
     html_file = f"html_files/listing_{listing_id}.html"
 
     f = open(html_file, 'r')
@@ -104,13 +102,7 @@ def get_listing_information(listing_id):
     data = BeautifulSoup(file_data, 'html.parser')
 
     policy = data.find_all('li', class_ = 'f19phm7j dir dir-ltr')[0].text
-
-
-
-    # policy = policy.lstrip("Policy number: ")
-    # print("---------")
-    # print(policy)
-
+    
     if "policy number: pending" in policy.lower():
         policy = "Pending"
 
@@ -123,10 +115,30 @@ def get_listing_information(listing_id):
     if "policy number: " in policy.lower():
         policy = policy.lstrip("Policy number: ")
 
+   
+   
+    place = data.find_all('h2', class_="_14i3z6h")[0].text
+    
+    if "private" in place.lower():
+        place = "Private Room"
+
+    
+    elif "shared" in place.lower():
+        place = "Shared Room"
+
+
+    else: 
+        place = "Entire Room"
+
+    
+    rooms = data.find_all()
+
+   
     print("******")
     print(policy)
+    print(place)
 
-    return policy
+    # return policy
 
 
 
