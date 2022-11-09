@@ -93,6 +93,52 @@ def get_listing_information(listing_id):
         number of bedrooms
     )
     """
+
+    policies = []
+
+    html_file = f"html_files/listing_{listing_id}.html"
+
+    f = open(html_file, 'r')
+    file_data = f.read()
+
+    data = BeautifulSoup(file_data, 'html.parser')
+
+    policy = data.find_all('li', class_ = 'f19phm7j dir dir-ltr')[0].text
+
+
+
+    # policy = policy.lstrip("Policy number: ")
+    # print("---------")
+    # print(policy)
+
+    if "policy number: pending" in policy.lower():
+        policy = "Pending"
+
+    elif "policy number: excempt" in policy.lower():
+        policy = "Exempt"
+
+    elif "policy number: license not needed per ostr" in policy.lower():
+        policy = "Exempt"
+    
+    if "policy number: " in policy.lower():
+        policy = policy.lstrip("Policy number: ")
+
+    print("******")
+    print(policy)
+
+    return policy
+
+
+
+
+# policy.lstrip("Policy number: ")
+
+    # print("******")
+    # print(policies)
+
+    f.close()
+
+
     pass
 
 
