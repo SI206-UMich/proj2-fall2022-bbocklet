@@ -122,36 +122,25 @@ def get_listing_information(listing_id):
     if "private" in place.lower():
         place = "Private Room"
 
-    
     elif "shared" in place.lower():
         place = "Shared Room"
-
 
     else: 
         place = "Entire Room"
 
     
-    rooms = data.find_all()
+    rooms = data.find_all('li', class_= "l7n4lsf dir dir-ltr")
 
-   
-    print("******")
-    print(policy)
-    print(place)
+    br_code = rooms[1].text.split()
 
-    # return policy
+    num_br = int(br_code[1])
 
-
-
-
-# policy.lstrip("Policy number: ")
-
+    # print(policy)
+    # print(place)
+    # print(num_br)
     # print("******")
-    # print(policies)
 
-    f.close()
-
-
-    pass
+    return (policy, place, num_br)
 
 
 def get_detailed_listing_database(html_file):
