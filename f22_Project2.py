@@ -4,6 +4,7 @@ import re
 import os
 import csv
 import unittest
+import operator
 
 
 def get_listings_from_search_results(html_file):
@@ -106,7 +107,7 @@ def get_listing_information(listing_id):
     if "policy number: pending" in policy.lower():
         policy = "Pending"
 
-    elif "policy number: excempt" in policy.lower():
+    elif "policy number: exempt" in policy.lower():
         policy = "Exempt"
 
     elif "policy number: license not needed per ostr" in policy.lower():
@@ -192,8 +193,6 @@ def get_detailed_listing_database(html_file):
 
 
 
-    # pass
-
 
 def write_csv(data, filename):
     """
@@ -217,7 +216,21 @@ def write_csv(data, filename):
 
     This function should not return anything.
     """
-    pass
+    
+    data = sorted(data, key=operator.itemgetter(1))
+    with open(filename, 'w', newline = '') as f:
+        w = csv.DictWriter(f, ["Listing Title", "Cost", "Listing ID", "Policy Number", "Place Type", "Number of Bedrooms"])
+        w.writeheader()
+        for item in data:
+            d = {}
+            d["Listing Title"] = item[0]
+            d["Cost"] = item[1]
+            d["Listing ID"] = item[2]
+            d["Policy Number"] = item[3]
+            d["Place Type"] = item[4]
+            d["Number of Bedrooms"] = item[5]
+            w.writerow(d)
+
 
 
 def check_policy_numbers(data):
