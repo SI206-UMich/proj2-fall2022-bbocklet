@@ -1,3 +1,8 @@
+# Your name: Blair Bocklet
+# Your student id: 92331733
+# Your email: bbocklet@umich.edu
+# List who you have worked with on this project: Aishani Agrawal
+
 from xml.sax import parseString
 from bs4 import BeautifulSoup
 import re
